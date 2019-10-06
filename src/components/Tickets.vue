@@ -108,7 +108,7 @@ div > .v-messages {
   max-width: 1100px;
   margin: 0 auto;
 }
-
+ 
 .filters {
   float: left;
   padding: 20px;

@@ -3,7 +3,7 @@
     <Tickets />
   </div>
 </template>
-
+ 
 <script>
 import Tickets from "./components/Tickets"
 export default {
