@@ -1,30 +1,36 @@
 <template>
-  <div>
-    <v-layout row class="justify-space-between">
-      <v-flex xs3>
-        <div class="filters" id="box">
-          <h4>Авиакомпании</h4>
-          <div>
+  <div class="c-wrap">
+    <v-container>
+      <v-row>
+        <v-col cols="12" md="4">
+          <div class="box" style="position: fixed;">
+            <h4 class="title">Авиакомпании</h4>
             <v-checkbox
+              class="items"
               @change="filter"
               v-for="(airline, index) in airlines"
               :key="index"
-              class="checkbox-input"
               v-model="selected"
-              color="success"
               :label="airline.value"
               :value="airline.key"
             ></v-checkbox>
           </div>
-        </div>
-      </v-flex>
-      <v-flex xs1></v-flex>
-      <v-flex xs6>
-        <ul>
-          <li v-for="(filt, i) in filtered" :key="i">{{filt.price}}</li>
-        </ul>
-      </v-flex>
-    </v-layout>
+        </v-col>
+        <v-col cols="12" md="8" class="overflow">
+          <div style="flex-direction:row;" v-for="(filt, i) in filtered" :key="i">
+            <div class="box" style="margin-bottom:10px">
+              <v-row class="rows">
+                <div cols="12" md="6" class="info-ticket">{{filt.price}}</div>
+                <div cols="12" md="8" class="info-accept">{{filt.itineraries[0][0].carrier_name}}</div>
+              </v-row>
+              <!-- <ul>
+                <li v-for="(filt, i) in filtered" :key="i">{{filt.itineraries[0][0].carrier_name}}</li>
+              </ul>-->
+            </div>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>;
 
@@ -74,64 +80,60 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 html,
 body {
+  background-color:#d7d7d7;
   padding: 0;
   margin: 0;
-  background: #d7d7d7;
+}
+
+.c-wrap {
+  background-color: #d7d7d7;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
   font-family: Open Sans;
   font-style: normal;
   font-weight: bold;
   font-size: 14px;
 }
 
-* {
-  box-sizing: border-box;
-}
-.v-input__slot .v-label {
-  color: black !important;
-}
-.checkbox-input {
-  height: 50px;
-  margin: 0 !important;
-  padding: 0 8px !important;
-}
-div .v-input {
-  height: 25px !important;
-}
-div > .v-messages {
-  display: none;
-}
-#wrapper {
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-}
- 
-.filters {
-  float: left;
-  padding: 20px;
+.title {
+  margin-bottom: 20px;
 }
 
-#tickets {
-  width: 63.63636363636364%;
-  float: left;
-  padding: 20px;
-  text-align: start;
+.info-accept {
+  display: flex;
+  /* margin-left: 100px; */
+  background: #d7d7d7;
+  border-radius: 0px 4px 4px 0px;
 }
-
-#box {
+.overflow {
+  overflow: auto;
+  height: 100%;
+}
+.info-ticket {
+  display: flex;
   background: #f5f5f5;
+  height: 100px;
+  padding: 5px;
+}
+
+.box {
+  background: #f5f5f5;
+  padding: 15px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
   border-radius: 4px;
 }
-
-@media screen and (max-width: 500px) {
-  #filters,
-  #tickets {
-    float: none;
-    width: 100%;
-  }
+.rows {
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+}
+.items {
+  padding: 0;
+  margin-top: -15px;
 }
 </style>
