@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col cols="12" md="4">
-          <div class="box" style="position: fixed;">
+          <div class="box" style="position: fixed">
             <h4 class="title">Авиакомпании</h4>
             <v-checkbox
               class="items"
@@ -16,16 +16,18 @@
             ></v-checkbox>
           </div>
         </v-col>
-        <v-col cols="12" md="8" class="overflow">
+        <v-col class="overflow" cols="12" md="8">
           <div style="flex-direction:row;" v-for="(filt, i) in filtered" :key="i">
             <div class="box" style="margin-bottom:10px">
-              <v-row class="rows">
-                <div cols="12" md="6" class="info-ticket">{{filt.price}}</div>
-                <div cols="12" md="8" class="info-accept">{{filt.itineraries[0][0].carrier_name}}</div>
-              </v-row>
-              <!-- <ul>
-                <li v-for="(filt, i) in filtered" :key="i">{{filt.itineraries[0][0].carrier_name}}</li>
-              </ul>-->
+              <v-container class="v-info-ticket">
+                <v-row>
+                  <div class="v-price">{{filt.itineraries[0][0].carrier_name}}</div>
+                </v-row>
+                <v-row>
+                  <div class="v-access">{{filt.itineraries[0][0].arr_date}}</div>
+                  <div class="v-access">{{filt.price}}</div>
+                </v-row>
+              </v-container>
             </div>
           </div>
         </v-col>
@@ -83,9 +85,25 @@ export default {
 <style scoped>
 html,
 body {
-  background-color:#d7d7d7;
+  background-color: #d7d7d7;
   padding: 0;
   margin: 0;
+}
+.v-access {
+  width: 50%;
+  height: 100%;
+  position: initial;
+}
+.v-price {
+  width: 100%;
+  position: initial;
+  height: 100%;
+}
+
+.v-info-ticket {
+  display: flex;
+  flex-direction: row;
+  align-content: flex-end;
 }
 
 .c-wrap {
@@ -110,10 +128,12 @@ body {
   background: #d7d7d7;
   border-radius: 0px 4px 4px 0px;
 }
+
 .overflow {
   overflow: auto;
-  height: 100%;
+  height: 30%;
 }
+
 .info-ticket {
   display: flex;
   background: #f5f5f5;
@@ -135,5 +155,13 @@ body {
 .items {
   padding: 0;
   margin-top: -15px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
 }
 </style>
